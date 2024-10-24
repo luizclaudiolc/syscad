@@ -1,0 +1,18 @@
+$primary-color: #007bff;
+$secondary-color: #f8f9fa;
+$font-family: 'Roboto', sans-serif;
+
+// Estilos do menu lateral
+.sidenav {
+  width: 200px;
+  background-color: $primary-color;
+  color: $secondary-color;
+  font-family: $font-family;
+
+  .mat-list-item {
+    color: inherit;
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav class="sidenav" [opened]="true">
+    <mat-list>
+      <mat-list-item *ngFor="let item of menuItems">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span>{{ item.label }}</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    </mat-sidenav-content>
+</mat-sidenav-container>
