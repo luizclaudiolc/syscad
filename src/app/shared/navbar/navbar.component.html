@@ -1,0 +1,47 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <button mat-icon-button *ngIf="isSmallScreen" [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <button mat-icon-button *ngIf="!isSmallScreen" (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span>{{ title }}</span>
+  <span class="flex-auto"></span>
+
+  <button mat-icon-button aria-label="Profile">
+    <mat-icon>person</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item *ngFor="let btn of menuItems" [routerLink]="btn.link">
+    <mat-icon>{{ btn.icon }}</mat-icon>
+    <span>{{ btn.label }}</span>
+  </button>
+</mat-menu>
+
+<mat-drawer-container autosize class="h-dvh">
+  <mat-drawer
+    #drawer
+    *ngIf="!isSmallScreen"
+    mode="side"
+    opened="true"
+    position="start"
+  >
+    <mat-nav-list>
+      <mat-list-item *ngFor="let btn of menuItems" [routerLink]="btn.link">
+        <button [routerLink]="btn.link" mat-button>
+          <mat-icon>{{ btn.icon }}</mat-icon> {{ btn.label }}
+        </button>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <mat-drawer-content class="flex h-full flex-col">
+    <div class="flex flex-1 w-full h-full">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
