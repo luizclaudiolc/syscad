@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HomeComponent } from './home.component';
 
 const appCompoents = [HomeComponent];
-const ngxModules = [CommonModule]
+const ngxModules = [CommonModule];
 
 @NgModule({
   declarations: [...appCompoents],

@@ -1,17 +1,22 @@
-<mat-toolbar color="primary" class="mat-elevation-z8">
+<mat-toolbar class="mat-elevation-z8 h-12">
+  <!-- Deve aparecer somente quando user logado -->
   <button mat-icon-button *ngIf="isSmallScreen" [matMenuTriggerFor]="menu">
     <mat-icon>menu</mat-icon>
   </button>
 
+  <!-- Deve aparecer somente quando user logado -->
   <button mat-icon-button *ngIf="!isSmallScreen" (click)="drawer.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
 
-  <span>{{ title }}</span>
+  <img src="../../../assets/images/syscad-log.png" class="w-10" />
   <span class="flex-auto"></span>
 
-  <button mat-icon-button aria-label="Profile">
+  <button mat-icon-button aria-label="Profile" routerLink="/login">
     <mat-icon>person</mat-icon>
+  </button>
+  <button mat-icon-button aria-label="Create profile" routerLink="/create">
+    <mat-icon>person_add</mat-icon>
   </button>
 </mat-toolbar>
 
@@ -39,9 +44,7 @@
     </mat-nav-list>
   </mat-drawer>
 
-  <mat-drawer-content class="flex h-full flex-col">
-    <div class="flex flex-1 w-full h-full">
-      <router-outlet></router-outlet>
-    </div>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
