@@ -8,15 +8,12 @@ import { CreateModule } from './auth/create/create.module';
 import { NavbarModule } from './shared/navbar/navbar.module';
 import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { LoginModule } from './auth/login/login.module';
 
-const appModules = [CreateModule, NavbarModule];
+const appModules = [CreateModule, NavbarModule, LoginModule];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    DashboardComponent
-  ],
+  declarations: [AppComponent, HomeComponent, DashboardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,6 +21,6 @@ const appModules = [CreateModule, NavbarModule];
     ...appModules,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
