@@ -1,131 +1,152 @@
-<div class="w-full h-full relative">
+<div
+  class="w-full h-screen flex justify-center items-center relative overflow-hidden"
+>
   <div
-    class="absolute inset-0 bg-[url('src/assets/images/bg.jpg')] bg-no-repeat bg-cover blur-sm"
+    class="absolute inset-0 bg-[url('src/assets/images/bg.jpg')] bg-no-repeat bg-cover blur-sm opacity-65 md:block"
   ></div>
 
   <div
-    class="max-w-sm absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 shadow-xl"
+    class="flex w-full h-full items-center justify-center space-x-4 md:space-x-0 md:flex-row"
   >
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Criar Usuário</mat-card-title>
-        <mat-card-subtitle>Preencha as informações abaixo</mat-card-subtitle>
-      </mat-card-header>
+    <div
+      class="relative z-10 flex w-full h-full items-center justify-center space-x-4 md:space-x-0 md:flex-row"
+    >
+      <div
+        class="hidden md:flex md:w-2/3 h-full items-center justify-center pointer-events-none"
+      >
+        <img
+          src="assets/images/create-user-01.svg"
+          alt="Imagem criação de usuário"
+          class="max-w-full h-auto"
+        />
+      </div>
 
-      <mat-card-content>
-        <form [formGroup]="createUser" novalidate>
-          <mat-form-field class="w-full">
-            <mat-label>Nome</mat-label>
-            <input
-              matInput
-              formControlName="fristName"
-              placeholder="Digite seu nome"
-              required
-            />
-            <mat-error *ngIf="createUser.get('fristName')?.touched">
-              Nome é obrigatório.
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="w-full">
-            <mat-label>Sobrenome</mat-label>
-            <input
-              matInput
-              formControlName="lastName"
-              placeholder="Digite seu sobrenome"
-            />
-          </mat-form-field>
-
-          <mat-form-field class="w-full">
-            <mat-label>Cargo/Função</mat-label>
-            <input
-              matInput
-              formControlName="position"
-              placeholder="Digite seu cargo/função"
-              required
-            />
-            <mat-error *ngIf="createUser.get('position')?.touched">
-              Cargo/Função é obrigatório.
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="w-full">
-            <mat-label>Email</mat-label>
-            <input
-              matInput
-              formControlName="email"
-              type="email"
-              placeholder="Digite seu email"
-              required
-            />
-            <mat-error *ngIf="createUser.get('email')?.invalid">
-              Por favor, informe um email válido
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="w-full">
-            <mat-label>Senha</mat-label>
-            <input
-              matInput
-              formControlName="password"
-              [type]="isPasswordVisibleOne ? 'text' : 'password'"
-              placeholder="Digite sua senha"
-              required
-            />
-            <button
-              mat-icon-button
-              matSuffix
-              type="button"
-              (click)="isPasswordVisibleOne = !isPasswordVisibleOne"
+      <div class="w-full md:w-1/3 max-w-sm p-6 rounded-lg relative z-10">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Criar Usuário</mat-card-title>
+            <mat-card-subtitle
+              >Preencha as informações abaixo</mat-card-subtitle
             >
-              <mat-icon>{{
-                isPasswordVisibleOne ? "visibility_off" : "visibility"
-              }}</mat-icon>
-            </button>
-            <mat-error *ngIf="createUser.get('password')?.invalid">
-              A senha deve conter entre 8 e 12 caracteres com letras, números e
-              símbolos.
-            </mat-error>
-          </mat-form-field>
+          </mat-card-header>
 
-          <mat-form-field class="w-full mt-4">
-            <mat-label>Repita a senha</mat-label>
-            <input
-              matInput
-              [type]="isPasswordVisibleTwo ? 'text' : 'password'"
-              formControlName="confirmPassword"
-              placeholder="Digite sua senha novamente"
-              required
-            />
+          <mat-card-content>
+            <form [formGroup]="createUser" novalidate>
+              <mat-form-field class="w-full">
+                <mat-label>Nome</mat-label>
+                <input
+                  matInput
+                  formControlName="first_name"
+                  placeholder="Digite seu nome"
+                  required
+                />
+                <mat-error *ngIf="createUser.get('first_name')?.touched">
+                  Nome é obrigatório.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="w-full">
+                <mat-label>Sobrenome</mat-label>
+                <input
+                  matInput
+                  formControlName="last_name"
+                  placeholder="Digite seu sobrenome"
+                />
+              </mat-form-field>
+
+              <mat-form-field class="w-full">
+                <mat-label>Cargo/Função</mat-label>
+                <input
+                  matInput
+                  formControlName="position"
+                  placeholder="Digite seu cargo/função"
+                  required
+                />
+                <mat-error *ngIf="createUser.get('position')?.touched">
+                  Cargo/Função é obrigatório.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="w-full">
+                <mat-label>Email</mat-label>
+                <input
+                  matInput
+                  formControlName="email"
+                  type="email"
+                  placeholder="Digite seu email"
+                  required
+                />
+                <mat-error *ngIf="createUser.get('email')?.invalid">
+                  Por favor, informe um email válido
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="w-full">
+                <mat-label>Senha</mat-label>
+                <input
+                  matInput
+                  formControlName="password"
+                  [type]="isPasswordVisibleOne ? 'text' : 'password'"
+                  placeholder="Digite sua senha"
+                  required
+                />
+                <button
+                  mat-icon-button
+                  matSuffix
+                  type="button"
+                  (click)="isPasswordVisibleOne = !isPasswordVisibleOne"
+                >
+                  <mat-icon>{{
+                    isPasswordVisibleOne ? "visibility_off" : "visibility"
+                  }}</mat-icon>
+                </button>
+                <mat-error *ngIf="createUser.get('password')?.invalid">
+                  A senha deve conter entre 8 e 12 caracteres com letras,
+                  números e símbolos.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="w-full mt-4">
+                <mat-label>Repita a senha</mat-label>
+                <input
+                  matInput
+                  [type]="isPasswordVisibleTwo ? 'text' : 'password'"
+                  formControlName="confirmPassword"
+                  placeholder="Digite sua senha novamente"
+                  required
+                />
+                <button
+                  mat-icon-button
+                  matSuffix
+                  type="button"
+                  (click)="isPasswordVisibleTwo = !isPasswordVisibleTwo"
+                >
+                  <mat-icon>{{
+                    isPasswordVisibleTwo ? "visibility_off" : "visibility"
+                  }}</mat-icon>
+                </button>
+                <mat-error *ngIf="createUser.hasError('passwordMismatch')">
+                  As senhas não coincidem.
+                </mat-error>
+              </mat-form-field>
+            </form>
+          </mat-card-content>
+
+          <!-- Ações do formulário -->
+          <mat-card-actions align="end">
+            <button mat-button routerLink="/">Cancelar</button>
             <button
-              mat-icon-button
-              matSuffix
-              type="button"
-              (click)="isPasswordVisibleTwo = !isPasswordVisibleTwo"
+              mat-button
+              color="primary"
+              type="submit"
+              [disabled]="createUser.invalid"
+              (click)="create()"
             >
-              <mat-icon>{{
-                isPasswordVisibleTwo ? "visibility_off" : "visibility"
-              }}</mat-icon>
+              Criar conta
             </button>
-            <mat-error *ngIf="createUser.hasError('passwordMismatch')">
-              As senhas não coincidem.
-            </mat-error>
-          </mat-form-field>
-        </form>
-      </mat-card-content>
-
-      <mat-card-actions align="end">
-        <button mat-button routerLink="/">Cancelar</button>
-        <button
-          mat-button
-          color="primary"
-          type="submit"
-          [disabled]="createUser.invalid"
-          (click)="create()"
-        >
-          Criar conta
-        </button>
-      </mat-card-actions>
-    </mat-card>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
   </div>
 </div>

@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
 
 const appComponets = [CreateComponent];
 const ngxModules = [CommonModule, ReactiveFormsModule, RouterModule];
@@ -18,6 +20,8 @@ const matModules = [
   MatButtonModule,
   FormsModule,
   MatIconModule,
+  MatSnackBarModule,
+  MatDividerModule,
 ];
 
 @NgModule({
