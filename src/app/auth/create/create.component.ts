@@ -5,9 +5,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { AuthService, ICreateUser } from '../auth.service';
+import { capitalize, SNACK_DEFAULT } from 'src/app/utils/helpers';
 
 @Component({
   selector: 'app-create',
@@ -17,7 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CreateComponent implements OnInit {
   isPasswordVisibleOne = false;
   isPasswordVisibleTwo = false;
-  createUser: FormGroup;
+  formCreateUser: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -25,7 +26,7 @@ export class CreateComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar
   ) {
-    this.createUser = this.fb.group(
+    this.formCreateUser = this.fb.group(
       {
         first_name: ['', Validators.required],
         last_name: [''],
@@ -49,14 +50,23 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {}
 
   create() {
-    if (this.createUser.invalid) return;
-    const user = this.createUser.getRawValue();
+    if (this.formCreateUser.invalid) return;
+    const _user = this.formCreateUser.getRawValue();
+    for (const [key, value] of Object.entries(_user)) {
+      if (key === 'confirmPassword') delete _user[key];
+    }
+
+    const user = _user as ICreateUser;
+
     this.authService.createUser(user).subscribe((res) => {
       if (res) {
         this.router.navigate(['/login']);
         this.snackBar.open(
-          `${res['first_name']}, Sua conta foi criada com suceso! Acesse o sistema!`,
-          'X'
+          `${capitalize(
+            res.first_name
+          )}, Sua conta foi criada com suceso! Acesse o sistema!`,
+          'X',
+          SNACK_DEFAULT()
         );
       }
     });

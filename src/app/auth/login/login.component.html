@@ -21,7 +21,7 @@
           </mat-card-header>
 
           <mat-card-content>
-            <form [formGroup]="formLogin" novalidate>
+            <form [formGroup]="formLogin" novalidate (keydown.enter)="login()">
               <mat-form-field class="w-full">
                 <mat-label>Email</mat-label>
                 <input

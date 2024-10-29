@@ -11,11 +11,13 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginModule } from './auth/login/login.module';
 import { AuthService } from './auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { httpInterceptorProviders } from './core/interceptors/tokenInterceptors';
+import { DashboardModule } from './pages/dashboard/dashboard.module';
 
-const appModules = [CreateModule, NavbarModule, LoginModule];
+const appModules = [CreateModule, NavbarModule, LoginModule, DashboardModule];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, DashboardComponent],
+  declarations: [AppComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
@@ -23,7 +25,7 @@ const appModules = [CreateModule, NavbarModule, LoginModule];
     BrowserAnimationsModule,
     ...appModules,
   ],
-  providers: [AuthService],
+  providers: [...httpInterceptorProviders, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

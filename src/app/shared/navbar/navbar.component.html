@@ -1,23 +1,39 @@
 <mat-toolbar class="mat-elevation-z8 h-12 bg-default text-fonts-color">
   <!-- Deve aparecer somente quando user logado -->
-  <button mat-icon-button *ngIf="isSmallScreen" [matMenuTriggerFor]="menu">
+  <button
+    mat-icon-button
+    *ngIf="isSmallScreen && userLogged"
+    [matMenuTriggerFor]="menu"
+  >
     <mat-icon>menu</mat-icon>
   </button>
 
   <!-- Deve aparecer somente quando user logado -->
-  <button mat-icon-button *ngIf="!isSmallScreen" (click)="drawer.toggle()">
+  <button
+    mat-icon-button
+    *ngIf="!isSmallScreen && userLogged"
+    (click)="drawer.toggle()"
+  >
     <mat-icon>menu</mat-icon>
   </button>
 
   <img src="../../../assets/images/syscad-log.png" class="w-10" />
   <span class="flex-auto"></span>
 
-  <button mat-icon-button aria-label="Profile" routerLink="/login">
-    <mat-icon>person</mat-icon>
-  </button>
-  <button mat-icon-button aria-label="Create profile" routerLink="/create">
-    <mat-icon>person_add</mat-icon>
-  </button>
+  <div *ngIf="!userLogged" class="app-userLogged-btns">
+    <button mat-icon-button aria-label="Profile" routerLink="/login">
+      <mat-icon>person</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Create profile" routerLink="/create">
+      <mat-icon>person_add</mat-icon>
+    </button>
+  </div>
+
+  <div *ngIf="userLogged" class="app-userLoggout-btns">
+    <button mat-icon-button aria-label="logout" (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
 
 <mat-menu #menu="matMenu">
@@ -31,12 +47,16 @@
   <mat-drawer
     #drawer
     *ngIf="!isSmallScreen"
-    mode="side"
-    opened="true"
+    mode="push"
+    [opened]="userLogged ? true : false"
     position="start"
   >
     <mat-nav-list>
-      <mat-list-item *ngFor="let btn of menuItems" [routerLink]="btn.link">
+      <mat-list-item
+        *ngFor="let btn of menuItems"
+        [routerLink]="btn.link"
+        (click)="drawer.close()"
+      >
         <button [routerLink]="btn.link" mat-button>
           <mat-icon>{{ btn.icon }}</mat-icon> {{ btn.label }}
         </button>

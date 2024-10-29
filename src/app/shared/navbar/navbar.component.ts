@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatDrawer } from '@angular/material/sidenav';
+import { StorageService } from 'src/app/core/storage.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 interface IMenuItems {
   label: string;
@@ -18,8 +20,13 @@ export class NavbarComponent implements OnInit {
   isSmallScreen = false;
   protected menuItems: IMenuItems[] = [];
   protected title = '';
+  userLogged = false;
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private storage: StorageService,
+    private auth: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.menuItems = [
@@ -48,5 +55,13 @@ export class NavbarComponent implements OnInit {
           ? 'SysCad'
           : 'SysCad - Sistema de Cadastro';
       });
+
+    this.storage.isLogged$().subscribe((isLogged: boolean) => {
+      this.userLogged = isLogged;
+    });
+  }
+
+  logout(): void {
+    this.auth.logout();
   }
 }
