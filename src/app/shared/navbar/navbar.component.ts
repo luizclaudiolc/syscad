@@ -40,11 +40,11 @@ export class NavbarComponent implements OnInit {
         link: '/dashboard',
         icon: 'dashboard',
       },
-      {
-        label: 'Sair',
-        link: '/',
-        icon: 'exit_to_app',
-      },
+      // {
+      //   label: 'Sair',
+      //   link: '/',
+      //   icon: 'exit_to_app',
+      // },
     ];
 
     this.breakpointObserver

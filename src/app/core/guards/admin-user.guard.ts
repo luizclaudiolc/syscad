@@ -10,23 +10,22 @@ import { StorageService } from '../storage.service';
 @Injectable({
   providedIn: 'root',
 })
-export class LogoutUser {
+export class AdminUser {
   constructor(private storage: StorageService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (!this.storage.isLoggedIn()) {
-      return true;
-    }
+    if (this.storage.userRole === 'ADMIN') true;
+    this.router.navigate(['/login']);
     return false;
   }
 }
 
-export const LogoutUserGuard: CanActivateFn = (
+export const AdminUserGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ): boolean => {
-  return inject(LogoutUser).canActivate(route, state);
+  return inject(AdminUser).canActivate(route, state);
 };

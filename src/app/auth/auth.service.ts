@@ -11,6 +11,7 @@ export interface IAuthResponse {
   accessToken: string;
   refreshToken: string;
   name: string;
+  roles: string;
 }
 
 export interface ILoginUser {

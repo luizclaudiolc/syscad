@@ -6,11 +6,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { CreateComponent } from './auth/create/create.component';
 import { LoggedUserGuard } from './core/guards/logged-user.guard';
 import { LogoutUserGuard } from './core/guards/logout-user.guard';
+import { UserDefaultHomeComponent } from './pages/user-default-home/user-default-home.component';
+import { UserAdminHomeComponent } from './pages/user-admin-home/user-admin-home.component';
+import { AdminUserGuard } from './core/guards/admin-user.guard';
+import { DefaultUserGuard } from './core/guards/default-user.guard';
 
 const routes: Routes = [
   {
-    path: '',
-    /*     canActivate: [LogoutUserGuard], */
+    path: 'home',
     component: HomeComponent,
   },
   {
@@ -24,7 +27,17 @@ const routes: Routes = [
     canActivate: [LogoutUserGuard],
     component: CreateComponent,
   },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {
+    path: 'default-home',
+    canActivate: [DefaultUserGuard],
+    component: UserDefaultHomeComponent,
+  },
+  {
+    path: 'admin-home',
+    canActivate: [AdminUserGuard],
+    component: UserAdminHomeComponent,
+  },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({

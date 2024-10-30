@@ -45,6 +45,10 @@ export class StorageService {
     return this.loggedInSubject.getValue();
   }
 
+  get userRole(): string {
+    return this.getUser().roles;
+  }
+
   updateLoginStatus(isLoggedIn: boolean): void {
     const user = this.getUser();
     if (isLoggedIn) {

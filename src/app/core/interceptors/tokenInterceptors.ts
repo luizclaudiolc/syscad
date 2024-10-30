@@ -25,8 +25,8 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const { name, accessToken, refreshToken } = this.storage.getUser();
-    console.log({ name, accessToken, refreshToken });
+    const { name, accessToken, refreshToken, roles } = this.storage.getUser();
+    console.log({ name, accessToken, refreshToken, roles });
 
     /*  */
     if (accessToken && request.url.startsWith(environment.PRODUTOS)) {

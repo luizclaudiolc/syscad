@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService, ILoginUser } from '../auth.service';
 import { capitalize, SNACK_DEFAULT } from 'src/app/utils/helpers';
+import { StorageService } from 'src/app/core/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private snackBar: MatSnackBar,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly storage: StorageService
   ) {
     this.formLogin = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -34,7 +36,10 @@ export class LoginComponent implements OnInit {
 
     this.authService.loginUser(user).subscribe((res) => {
       if (res) {
-        this.router.navigate(['/dashboard']);
+        this.storage.userRole === 'ADMIN'
+          ? this.router.navigate(['/admin-home'])
+          : this.router.navigate(['/default-home']);
+
         this.snackBar.open(
           `Bem-vindo(a) ao SysCad, ${capitalize(res.name)}!`,
           'X',
