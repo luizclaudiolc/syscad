@@ -17,10 +17,14 @@ export class AdminUser {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (this.storage.userRole === 'ADMIN') true;
+    if (this.storage.userRole === 'ADMIN') {
+      return true;
+    }
     this.router.navigate(['/login']);
     return false;
   }
+
+
 }
 
 export const AdminUserGuard: CanActivateFn = (

@@ -17,7 +17,9 @@ export class DefaultUser {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (this.storage.userRole === 'DEFAULT') true;
+    if (this.storage.userRole === 'DEFAULT') {
+      return true;
+    }
     this.router.navigate(['/login']);
     return false;
   }
