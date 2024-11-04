@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { MatDrawer } from '@angular/material/sidenav';
-import { StorageService } from 'src/app/core/storage.service';
-import { AuthService } from 'src/app/auth/auth.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {MatDrawer} from '@angular/material/sidenav';
+import {StorageService} from 'src/app/core/storage.service';
+import {AuthService} from 'src/app/auth/auth.service';
+import {capitalize} from "../../utils/helpers";
 
 interface IMenuItems {
   label: string;
@@ -20,13 +21,15 @@ export class NavbarComponent implements OnInit {
   isSmallScreen = false;
   protected menuItems: IMenuItems[] = [];
   protected title = '';
+  protected currentUser = '';
   userLogged = false;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private storage: StorageService,
     private auth: AuthService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.menuItems = [
@@ -49,15 +52,22 @@ export class NavbarComponent implements OnInit {
 
     this.breakpointObserver
       .observe([Breakpoints.Handset])
-      .subscribe(({ matches }) => {
+      .subscribe(({matches}) => {
         this.isSmallScreen = matches;
         this.title = this.isSmallScreen
           ? 'SysCad'
           : 'SysCad - Sistema de Cadastro';
       });
 
+
     this.storage.isLogged$().subscribe((isLogged: boolean) => {
       this.userLogged = isLogged;
+
+      if (this.userLogged) {
+        const {name, last_name} = this.storage.getUser();
+        let sobreNome = last_name.split(' ');
+        this.currentUser = sobreNome ? `${capitalize(name)} ${sobreNome.at(-1)}` : capitalize(name);
+      }
     });
   }
 

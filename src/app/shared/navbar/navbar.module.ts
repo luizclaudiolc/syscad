@@ -8,6 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule} from "@angular/material/card";
 
 const matModules = [
   MatToolbarModule,
@@ -16,6 +17,7 @@ const matModules = [
   MatButtonModule,
   MatSidenavModule,
   MatListModule,
+  MatCardModule
 ];
 const ngxModules = [CommonModule, RouterModule];
 const appComponents = [NavbarComponent];

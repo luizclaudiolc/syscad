@@ -13,4 +13,4 @@ export const SNACK_DEFAULT = (
 };
 
 export const capitalize = (str: string): string =>
-  str[0].toUpperCase() + str.slice(1);
+  str.charAt(0).toUpperCase() + str.slice(1);

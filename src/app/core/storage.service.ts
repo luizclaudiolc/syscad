@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { IAuthResponse } from '../auth/auth.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {IAuthResponse} from '../auth/auth.service';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 const USER_KEY = 'auth-user';
 
@@ -9,6 +9,7 @@ const USER_KEY = 'auth-user';
 })
 export class StorageService {
   public loggedInSubject: BehaviorSubject<boolean>;
+
   constructor() {
     this.loggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
   }
@@ -18,7 +19,7 @@ export class StorageService {
     this.updateLoginStatus(false);
   }
 
-  public saveUser(user: any): void {
+  public saveUser(user: IAuthResponse): void {
     localStorage.removeItem(USER_KEY);
     localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
@@ -34,7 +35,7 @@ export class StorageService {
 
   public isLoggedIn(): boolean {
     const user = localStorage.getItem(USER_KEY);
-    return user ? true : false;
+    return !!user;
   }
 
   public isLogged$(): Observable<boolean> {
@@ -46,16 +47,17 @@ export class StorageService {
   }
 
   get userRole(): string {
-    return this.getUser().roles;
+    return this.getUser().role;
   }
 
   updateLoginStatus(isLoggedIn: boolean): void {
     const user = this.getUser();
     if (isLoggedIn) {
       localStorage.setItem(USER_KEY, JSON.stringify(user));
-    } else {
-      localStorage.removeItem(USER_KEY);
+      this.loggedInSubject.next(isLoggedIn);
+      return;
     }
+    localStorage.removeItem(USER_KEY);
     this.loggedInSubject.next(isLoggedIn);
   }
 }

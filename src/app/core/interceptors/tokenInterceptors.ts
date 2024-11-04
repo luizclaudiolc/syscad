@@ -6,29 +6,29 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { throwError } from 'rxjs/internal/observable/throwError';
-import { catchError, switchMap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { AuthService } from '../../auth/auth.service';
-import { StorageService } from '../storage.service';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {throwError} from 'rxjs/internal/observable/throwError';
+import {catchError, switchMap} from 'rxjs/operators';
+import {environment} from 'src/environments/environment';
+import {AuthService} from '../../auth/auth.service';
+import {StorageService} from '../storage.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
     private storage: StorageService
-  ) {}
+  ) {
+  }
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const { name, accessToken, refreshToken, roles } = this.storage.getUser();
-    console.log({ name, accessToken, refreshToken, roles });
+    const {name, accessToken, refreshToken, role, last_name} = this.storage.getUser();
+    console.log({name, last_name, accessToken, refreshToken, role});
 
-    /*  */
     if (accessToken && request.url.startsWith(environment.PRODUTOS)) {
       request = this.addToken(request, accessToken);
 
@@ -79,5 +79,5 @@ export class TokenInterceptor implements HttpInterceptor {
 }
 
 export const httpInterceptorProviders = [
-  { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
 ];

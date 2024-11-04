@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { AuthService, ILoginUser } from '../auth.service';
-import { capitalize, SNACK_DEFAULT } from 'src/app/utils/helpers';
-import { StorageService } from 'src/app/core/storage.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
+import {AuthService, ILoginUser} from '../auth.service';
+import {capitalize, SNACK_DEFAULT} from 'src/app/utils/helpers';
+import {StorageService} from 'src/app/core/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   login() {
     if (this.formLogin.invalid) return;
@@ -36,9 +37,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.loginUser(user).subscribe((res) => {
       if (res) {
-        this.storage.userRole === 'ADMIN'
-          ? this.router.navigate(['/admin-home'])
-          : this.router.navigate(['/default-home']);
+        this.router.navigate(['/dashboard']);
 
         this.snackBar.open(
           `Bem-vindo(a) ao SysCad, ${capitalize(res.name)}!`,

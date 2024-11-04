@@ -1,15 +1,8 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { IProducts } from 'src/app/pages/products.service';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild,} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import {IProducts} from 'src/app/pages/products.service';
 
 @Component({
   selector: 'app-table',
@@ -28,7 +21,7 @@ export class TableComponent implements OnInit, OnChanges {
   protected HeaderNamesColumns: string[] = [
     'Nome',
     'Código',
-    'Valor',
+    'Valor (R$)',
     'Quantidade',
     'Usuário',
   ];
@@ -50,15 +43,12 @@ export class TableComponent implements OnInit, OnChanges {
       const transformedFilter = filter.trim().toLowerCase();
 
       // Verifica se o filtro existe em qualquer uma das propriedades relevantes
-      const matchFilter =
-        data.name.toLowerCase().includes(transformedFilter) ||
+      return data.name.toLowerCase().includes(transformedFilter) ||
         data.cod.toLowerCase().includes(transformedFilter) ||
         data.value.toLowerCase().includes(transformedFilter) ||
         data.qtd.toLowerCase().includes(transformedFilter) ||
         data.user.first_name.toLowerCase().includes(transformedFilter) ||
         data.user.position.toLowerCase().includes(transformedFilter);
-
-      return matchFilter;
     };
   }
 

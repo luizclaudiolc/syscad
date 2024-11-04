@@ -1,17 +1,18 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { catchError, Observable, of, tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { StorageService } from '../core/storage.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { SNACK_DEFAULT } from '../utils/helpers';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {catchError, Observable, of, tap} from 'rxjs';
+import {environment} from 'src/environments/environment';
+import {StorageService} from '../core/storage.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {SNACK_DEFAULT} from '../utils/helpers';
 
 export interface IAuthResponse {
   accessToken: string;
   refreshToken: string;
   name: string;
-  roles: string;
+  last_name: string;
+  role: string;
 }
 
 export interface ILoginUser {
@@ -42,7 +43,8 @@ export class AuthService {
     private readonly router: Router,
     private readonly storage: StorageService,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+  }
 
   loginUser(user: ILoginUser): Observable<IAuthResponse> {
     return this.http.post<IAuthResponse>(environment.AUTH_LOGIN, user).pipe(
@@ -89,15 +91,12 @@ export class AuthService {
 
   refreshToken(
     refreshToken: string
-  ): Observable<{ accessToken: string; refreshToken: string }> {
+  ): Observable<IAuthResponse> {
     const tokenWithoutQuotes =
       refreshToken.startsWith('"') && refreshToken.endsWith('"')
         ? refreshToken.slice(1, -1)
         : refreshToken;
-    return this.http.post<{
-      accessToken: string;
-      refreshToken: string;
-    }>(`${environment.REFRESH_TOKEN}`, {
+    return this.http.post<IAuthResponse>(`${environment.REFRESH_TOKEN}`, {
       refreshToken: tokenWithoutQuotes,
     });
   }

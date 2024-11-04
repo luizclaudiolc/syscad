@@ -30,10 +30,14 @@
     </button>
   </div>
 
-  <div *ngIf="userLogged" class="app-userLoggout-btns">
-    <button mat-icon-button aria-label="logout" (click)="logout()">
-      <mat-icon>exit_to_app</mat-icon>
-    </button>
+  <div *ngIf="userLogged" class="app-userLoggout-btns flex justify-center">
+
+      <div class="flex items-center mt-2">
+        <p >{{ currentUser }}</p>
+      </div>
+      <button mat-icon-button aria-label="logout" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
   </div>
 </mat-toolbar>
 
@@ -54,7 +58,7 @@
     #drawer
     *ngIf="!isSmallScreen"
     mode="push"
-    [opened]="userLogged ? true : false"
+    [opened]="userLogged"
     position="start"
   >
     <mat-nav-list>
