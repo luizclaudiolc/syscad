@@ -1,0 +1,69 @@
+<div *ngIf="produto" class="app-container flex flex-col items-center py-4 space-y-4">
+  <mat-card class="w-[90%] max-h-[90vh] overflow-auto mat-elevation-z8">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{ produto.name }}</mat-card-title>
+        <mat-card-subtitle>Saldo total do produto: {{ totalCurrency }}
+        </mat-card-subtitle>
+        <div class=" flex justify-end rounded-full object-cover h-3/4 w-3/4">
+          <img
+            mat-card-lg-image
+            src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+        </div>
+
+      </mat-card-title-group>
+    </mat-card-header>
+
+    <div class="mt-4">
+      <mat-card-content>
+        <!-- Formulário para atualização do produto -->
+        <form [formGroup]="produtoForm" class="flex flex-col space-y-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Nome do Produto</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Código do Produto</mat-label>
+            <input matInput formControlName="cod" readonly>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Valor</mat-label>
+            <input matInput formControlName="value" type="number">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Quantidade</mat-label>
+            <input matInput formControlName="qtd" type="number">
+          </mat-form-field>
+
+          <div formGroupName="user">
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label>Último a atualizar</mat-label>
+              <input matInput formControlName="first_name" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label>Cargo</mat-label>
+              <input matInput formControlName="position" readonly>
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card-content>
+    </div>
+
+    <mat-card-actions align="end">
+      <button mat-raised-button (click)="goBack()" class="mr-2">Voltar</button>
+      <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Salvar</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<div *ngIf="!produto"
+     class="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4">
+  <mat-progress-spinner
+    color="primary"
+    mode="indeterminate">
+  </mat-progress-spinner>
+</div>

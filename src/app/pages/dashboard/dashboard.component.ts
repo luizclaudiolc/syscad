@@ -19,13 +19,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     [this.currentUser, this.roleCurrentUser] = [this.storage.getUser().name, this.storage.getUser().role]
-    this.productsService.getAll().subscribe((e) => (this.produtos = e));
+    this.productsService.getAll().subscribe((e) => this.produtos = e);
   }
 
   protected checkRoleForUser(): boolean {
-    console.log(this.storage.getUser().role)
     return (this.storage.getUser().role === ROLE_ADMIN);
   }
 }
-
-

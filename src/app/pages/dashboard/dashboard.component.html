@@ -21,4 +21,12 @@
       <app-table [data]="produtos"></app-table>
     </ng-container>
   </div>
+
+  <div *ngIf="!produtos.length"
+       class="absolute top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4">
+    <mat-progress-spinner
+      class="app-spinner"
+      mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
 </div>
